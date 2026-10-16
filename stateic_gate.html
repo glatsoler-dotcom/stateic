@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stateic</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #000;
+      color: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    main { width: min(360px, calc(100% - 40px)); text-align: center; }
+    h1 {
+      margin: 0 0 30px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .32em;
+      text-transform: lowercase;
+    }
+    form { display: flex; flex-direction: column; gap: 12px; }
+    input {
+      width: 100%;
+      padding: 15px 14px;
+      border: 1px solid #393939;
+      border-radius: 0;
+      outline: none;
+      background: #080808;
+      color: #fff;
+      font: inherit;
+      text-align: center;
+      letter-spacing: .12em;
+    }
+    input:focus { border-color: #f5f5f5; }
+    button {
+      padding: 14px;
+      border: 1px solid #f5f5f5;
+      border-radius: 0;
+      background: #f5f5f5;
+      color: #000;
+      font: inherit;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    button:hover { background: #d8d8d8; }
+    #message {
+      display: none;
+      font-size: clamp(25px, 7vw, 38px);
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: lowercase;
+      white-space: nowrap;
+    }
+    #error { min-height: 16px; margin: 2px 0 0; color: #aaa; font-size: 12px; }
+    body.unlocked main { width: auto; }
+    body.unlocked h1, body.unlocked form { display: none; }
+    body.unlocked #message { display: block; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>code</h1>
+    <form id="codeForm">
+      <input id="code" type="password" placeholder="enter code" aria-label="Enter code" autocomplete="off" autofocus>
+      <button type="submit">enter</button>
+      <p id="error" aria-live="polite"></p>
+    </form>
+    <div id="message">unlocked stateic</div>
+  </main>
+  <script>
+    const form = document.getElementById('codeForm');
+    const input = document.getElementById('code');
+    const error = document.getElementById('error');
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (input.value.trim().toLowerCase() === 'state') {
+        document.body.classList.add('unlocked');
+      } else {
+        error.textContent = 'wrong code';
+        input.value = '';
+        input.focus();
+      }
+    });
+  </script>
+</body>
+</html>
